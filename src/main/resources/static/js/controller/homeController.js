@@ -3,6 +3,7 @@
 
 	var controller = function($scope, $rootScope, userFactory) {
 
+		$scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 		$scope.desc = false;
 		var lastSortParam = "";
 		
@@ -40,7 +41,6 @@
 							return;
 						}
 					});
-					debugger;
 					$scope.users[index] = response;
 				});
 			};

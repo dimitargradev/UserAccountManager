@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	private Pageable getPage(String orderBy, String orderDirection) {
-		final Direction dir = orderDirection == "DESC" ? Direction.DESC : Direction.ASC;
+		final Direction dir = orderDirection.equals("DESC") ? Direction.DESC : Direction.ASC;
 		return new PageRequest(0, 20, dir, orderBy);
 	}
 
