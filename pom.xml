@@ -17,19 +17,12 @@
 		<spring.web.mvc>4.2.6.RELEASE</spring.web.mvc>
 		<jackson.version>2.7.5</jackson.version>
 		<mysql.jdbc.driver>5.1.19</mysql.jdbc.driver>
-		<lombok>1.16.8</lombok>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>${javaee.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>${lombok}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
