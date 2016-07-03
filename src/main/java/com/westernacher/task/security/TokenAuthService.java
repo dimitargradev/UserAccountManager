@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.westernacher.task.cache.CacheManager;
 import com.westernacher.task.model.User;
-import com.westernacher.task.repository.UserRepository;
+import com.westernacher.task.service.UserService;
 
 @Component
 public class TokenAuthService {
@@ -22,7 +22,7 @@ public class TokenAuthService {
 	private final TokenHandler tokenHandler;
 
 	@Autowired
-	UserRepository userRepository;
+	UserService userService;
 
 	@Autowired
 	public TokenAuthService(@Value("${token.secret}") String secret) {
@@ -34,7 +34,7 @@ public class TokenAuthService {
 		// user = userService.findById(user.getUserId());
 		final String token = tokenHandler.createTokenForUser(user);
 		user.setToken(token);
-		// CacheManager.setCache(user.getUserId(), user, SESSION_LENGTH_MS);
+		CacheManager.setCache(user.getUserId(), user, SESSION_LENGTH_MS);
 		response.addHeader(SECURITY_TOKEN_NAME, token);
 	}
 
@@ -43,7 +43,7 @@ public class TokenAuthService {
 		if (token != null) {
 
 			if ("administrator".equals(token)) {
-				return new UserAuthentication(userRepository.findByUsername("admin"));
+				return new UserAuthentication(userService.findByUsername("admin"));
 			}
 
 			final User user = tokenHandler.parseUserFromToken(token);
@@ -56,5 +56,9 @@ public class TokenAuthService {
 			}
 		}
 		return null;
+	}
+
+	public String generateTokenForUser(User user) {
+		return tokenHandler.createTokenForUser(user);
 	}
 }

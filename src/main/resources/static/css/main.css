@@ -1,62 +1,122 @@
-body, html{
-     height: 100%;
- 	background-repeat: no-repeat;
- 	background-color: #d3d3d3;
- 	font-family: 'Oxygen', sans-serif;
+body, html {
+	height: 100%;
+	background-repeat: no-repeat;
+	background-color: #d3d3d3;
+	font-family: 'Oxygen', sans-serif;
 }
 
-.main{
- 	margin-top: 5px;
+.main {
+	margin-top: 5px;
 }
 
-h1.title { 
+h1.title {
 	font-size: 50px;
-	font-family: 'Passion One', cursive; 
-	font-weight: 400; 
+	font-family: 'Passion One', cursive;
+	font-weight: 400;
 }
 
-hr{
+hr {
 	width: 10%;
 	color: #fff;
 }
 
-.form-group{
+.form-group {
 	margin-bottom: 15px;
 }
 
-label{
+label {
 	margin-bottom: 15px;
 }
 
-input,
-input::-webkit-input-placeholder {
-    font-size: 11px;
-    padding-top: 3px;
+input, input::-webkit-input-placeholder {
+	font-size: 11px;
+	padding-top: 3px;
 }
 
-.main-login{
- 	background-color: #fff;
-    /* shadows and rounded borders */
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+.main-page {
+	background-color: #fff;
+	/* shadows and rounded borders */
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+	-moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	-webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.main-center{
- 	margin-top: 30px;
- 	margin: 0 auto;
- 	max-width: 330px;
-    padding: 40px 40px;
+.main-page.login {
+	margin-top: 30px;
+	margin: 0 auto;
+	max-width: 330px;
+	padding: 40px 40px;
 }
 
-.login-button{
+.main-page.page {
+	margin-top: 30px;
+	margin: 0 auto;
+	max-width: 100%;
+	padding: 40px 40px;
+}
+
+.login-button {
 	margin-top: 5px;
 }
 
-.login-register{
+.login-register {
 	font-size: 11px;
 	text-align: center;
+}
+
+.custom-error {
+	color: #a94442
+}
+.table a.table-link.danger {
+    color: #e74c3c;
+}
+.label {
+    border-radius: 3px;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+.user-list tbody td .user-subhead {
+    font-size: 0.875em;
+    font-style: italic;
+}
+.user-list tbody td .user-link {
+    display: block;
+    font-size: 1.25em;
+    padding-top: 3px;
+    margin-left: 60px;
+}
+a {
+    color: #3498db;
+    outline: none!important;
+}
+.user-list tbody td>img {
+    position: relative;
+    max-width: 50px;
+    float: left;
+    margin-right: 15px;
+}
+
+.table thead tr th {
+    text-transform: uppercase;
+    font-size: 0.875em;
+}
+.table thead tr th {
+    border-bottom: 2px solid #e7ebee;
+}
+.table tbody tr td:first-child {
+    font-size: 1.125em;
+    font-weight: 300;
+}
+.table tbody tr td {
+    font-size: 0.875em;
+    vertical-align: middle;
+    border-top: 1px solid #e7ebee;
+    padding: 12px 8px;
+}
+
+.main-page.no-header {
+    padding-top: 20px;
 }

@@ -1,17 +1,22 @@
 package com.westernacher.task.model;
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -43,43 +48,69 @@ public class User implements UserDetails{
 	@Column(name="email")
 	private String email;
 	
+	@Column(name="creation_time")
+	private Date creationTime;
+	
+	@PrePersist
+	public void onInsert(){
+		this.creationTime = new Date();
+	}
+	
 	@Column(name="account_expired")
-	private boolean isAccountExpired;
+	@JsonIgnore
+	private boolean isAccountExpired = false;
 	
 	@Column(name="account_locked")
-	private boolean isAccountLocked;
+	@JsonIgnore
+	private boolean isAccountLocked = false;
 	
 	@Column(name="credentials_expired")
-	private boolean isCredentialsExpired;
+	@JsonIgnore
+	private boolean isCredentialsExpired = false;
 	
 	@Column(name="is_enabled")
-	private boolean isEnabled;
+	@JsonIgnore
+	private boolean isEnabled = true;
 	
 	@Transient
+	@JsonIgnore
 	private String token;
+	
+	@Transient
+	@JsonIgnore
+	public Date tokenCreationTime;
 
 	@Override
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isAccountNonExpired() {
 		return !isAccountExpired;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isAccountNonLocked() {
 		return !isAccountLocked;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isCredentialsNonExpired() {
 		return !isCredentialsExpired;
 	}
-
-	@Override
-	public boolean isEnabled() {
-		return isEnabled;
+	
+	@JsonIgnore
+	public String getPassword() {
+		return this.password;
+	}
+	
+	@JsonProperty
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

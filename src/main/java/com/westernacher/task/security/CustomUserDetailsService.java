@@ -8,19 +8,19 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.westernacher.task.model.User;
-import com.westernacher.task.repository.UserRepository;
+import com.westernacher.task.service.UserService;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	UserRepository userRepository;
-	
+	UserService userService;
+
 	private final AccountStatusUserDetailsChecker detailsChecker = new AccountStatusUserDetailsChecker();
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		final User user = userRepository.findByUsername(username);
+		final User user = userService.findByUsername(username);
 		if (user == null) {
 			throw new UsernameNotFoundException("User is not found");
 		}

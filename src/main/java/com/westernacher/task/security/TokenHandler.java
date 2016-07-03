@@ -3,6 +3,7 @@ package com.westernacher.task.security;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -70,7 +71,6 @@ public final class TokenHandler {
 	}
 
 	public String createTokenForUser(User user) {
-
 		final byte[] userBytes = JsonUtil.toJsonByteArray(createUserProjection(user));
 		final byte[] hash = createHmac(userBytes);
 		final StringBuilder sb = new StringBuilder(170);
@@ -86,6 +86,7 @@ public final class TokenHandler {
 		projection.setName(user.getName());
 		projection.setUsername(user.getUsername());
 		projection.setPassword(user.getPassword());
+		projection.setTokenCreationTime(new Date());
 		return projection;
 	}
 

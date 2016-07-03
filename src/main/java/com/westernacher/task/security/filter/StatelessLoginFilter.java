@@ -47,7 +47,7 @@ public class StatelessLoginFilter extends AbstractAuthenticationProcessingFilter
 
 		tokenAuthService.addAuthentication(response, userAuthentication);
 
-		response.getWriter().write("{authenticated: true}");
+		response.getWriter().write("{}");
 		SecurityContextHolder.getContext().setAuthentication(userAuthentication);
 	}
 }

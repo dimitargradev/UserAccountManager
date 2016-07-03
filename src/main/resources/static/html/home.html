@@ -1,0 +1,131 @@
+<div class="container">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="">Home</a></li>
+					<li><a href="">About</a></li>
+					<li><a href="">Contact</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li><a ng-click="logout()" href="">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="main-page page no-header clearfix">
+				<div class="table-responsive">
+					<table class="table user-list">
+						<thead>
+							<tr>
+								<th><a href="" data-ng-click="sort('name')">User</a></th>
+								<th><a href="" data-ng-click="sort('creationTime')">Created</a></th>
+								<th class="text-center"><a data-ng-click="sort('isEnabled')">Status</a></th>
+								<th><a data-ng-click="sort('email')">Email</a></th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr data-id="{{user.userId}}" data-ng-repeat="user in users">
+								<td>
+									<img src="http://bootdey.com/img/Content/user_1.jpg" alt=""> 
+									<a href="" class="user-link">{{user.name}}</a> 
+									<span class="user-subhead">Member</span>
+								</td>
+								<td>{{user.creationTime | date : 'dd-MM-yyyy'}}</td>
+								<td class="text-center">
+									<span ng-if="user.enabled" class="label label-success">active</span>
+									<span ng-if="!user.enabled" class="label label-danger">inactive</span>
+								</td>
+								<td>
+									<a href="">{{user.email}}</a>
+								</td>
+								<td>
+									<a id="edit" ng-click="onUserEdit(user)" data-id="{{user.id}}" href="" class="table-link"> 
+										<span class="fa-stack">
+											<i class="fa fa-square fa-stack-2x"></i> 
+											<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+										</span>
+									</a> 
+									<a id="delete" ng-click="deleteUser(user)" href="" class="table-link danger"> 
+										<span class="fa-stack"> 
+											<i class="fa fa-square fa-stack-2x"></i>
+											<i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+										</span>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div id="editUserModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal">&times;</button>
+	      <h4 class="modal-title">Modal Header</h4>
+	    </div>
+	    <div class="modal-body">
+			<div ng-class="selectedUser.name ? '' : 'has-error'" 
+				class="form-group">
+				<label for="name" class="cols-sm-2 control-label">
+					Your Name
+				</label>
+				<div class="cols-sm-10">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-user fa" aria-hidden="true"></i>
+						</span>
+						<input name="name" class="form-control" type="text"
+						data-ng-model="selectedUser.name"/>
+					</div>
+				</div>
+			</div>
+			<div ng-class="selectedUser.email ? '' : 'has-error'" 
+				class="form-group">
+				<label for="email" class="cols-sm-2 control-label">
+					Your Email
+				</label>
+				<div class="cols-sm-10">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-user fa" aria-hidden="true"></i>
+						</span>
+						<input name="email" class="form-control" type="text"
+						data-ng-model="selectedUser.email"/>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="status" class="cols-sm-2 control-label">
+					Status
+				</label>
+				<div class="cols-sm-10">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-user fa" aria-hidden="true"></i>
+						</span>
+						<select name="status" class="form-control" ng-model="selectedUser.enabled"
+            				ng-options="o.v as o.n for o in [{ n: 'Enabled', v: true }, { n: 'Disabled', v: false }]">
+    					</select>
+					</div>
+				</div>
+			</div>
+      	</div>
+	    <div class="modal-footer">
+		    <button name="update" type="button" class="btn btn-success">Update</button>
+		    <button type="button" class="btn btn-default" 
+		    	data-dismiss="modal">Close</button>
+	    </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,132 @@
+<div class="container">
+	<div class="row main">
+		<div class="panel-heading">
+			<div class="panel-title text-center">
+				<h1 class="title">Westernacher</h1>
+				<hr />
+			</div>
+		</div>
+		<div class="main-page login">
+			<form name="loginForm" class="form-horizontal" method="post"
+				action="#">
+				<div ng-if="!loginPage" class="form-group" has-error>
+					<label for="name" class="cols-sm-2 control-label">Your Name</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user fa"
+								aria-hidden="true"></i></span> <input name="name" class="form-control"
+								data-ng-model="$parent.user.name" required autocomplete="off"
+								type="text" placeholder="Enter your Name" />
+						</div>
+					</div>
+					<div ng-messages="loginForm.name.$error"
+						ng-if="loginForm.name.$dirty">
+						<span class="custom-error" ng-message="required">Please
+							enter your name!</span>
+					</div>
+				</div>
+
+				<div ng-if="!loginPage" class="form-group" has-error>
+					<label for="email" class="cols-sm-2 control-label">Your
+						Email</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-envelope fa" aria-hidden="true"></i></span> <input
+								name="email" class="form-control"
+								data-ng-model="$parent.user.email" required type="text"
+								placeholder="Enter your Email" autocomplete="off" />
+						</div>
+					</div>
+					<div ng-messages="loginForm.email.$error"
+						ng-if="loginForm.email.$dirty">
+						<span class="custom-error" ng-message="required">Please
+							enter your email!</span>
+					</div>
+				</div>
+
+				<div class="form-group" has-error>
+					<label for="username" class="cols-sm-2 control-label">Username</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-users fa"
+								aria-hidden="true"></i></span> <input name="username"
+								class="form-control" data-ng-model="user.username" required
+								type="text" placeholder="Enter your Username" autocomplete="off" />
+						</div>
+					</div>
+					<div ng-messages="loginForm.username.$error"
+						ng-if="loginForm.username.$dirty">
+						<span class="custom-error" ng-message="required">Please
+							enter your username!</span>
+					</div>
+				</div>
+
+				<div class="form-group" has-error>
+					<label for="password" class="cols-sm-2 control-label">Password</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-lock fa-lg" aria-hidden="true"></i></span> <input
+								id="password" name="password" class="form-control"
+								data-ng-model="user.password" required type="password"
+								placeholder="Enter your Password" autocomplete="off" />
+						</div>
+					</div>
+					<div ng-messages="loginForm.password.$error"
+						ng-if="loginForm.password.$dirty">
+						<span class="custom-error" ng-message="required">Please
+							enter your password!</span>
+					</div>
+				</div>
+
+				<div ng-if="!loginPage" class="form-group"
+					data-ng-class="(loginForm.confirmPassword.$dirty && 
+								loginForm.password.$dirty && 
+								loginForm.password.$valid && 
+								user.password!==user.confirmPassword) ? 'has-error' : ''">
+					<label for="confirm" class="cols-sm-2 control-label">Confirm
+						Password</label>
+					<div class="cols-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon"><i
+								class="fa fa-lock fa-lg" aria-hidden="true"></i></span> <input
+								name="confirmPassword" class="form-control"
+								data-ng-model="$parent.user.confirmPassword" required
+								autocomplete="off" type="password"
+								placeholder="Confirm your Password" />
+						</div>
+					</div>
+					<span class="custom-error"
+						data-ng-if="(loginForm.confirmPassword.$dirty && 
+								loginForm.password.$dirty && 
+								loginForm.password.$valid && 
+								user.password!==user.confirmPassword)">Passwords
+						don't match!</span>
+				</div>
+
+				<div ng-if="loginPage === true" class="form-group ">
+					<button type="button"
+						class="btn btn-primary btn-lg btn-block login-button"
+						data-ng-click="login()">Login</button>
+				</div>
+
+				<div ng-if="!loginPage" class="form-group ">
+					<button type="button"
+						class="btn btn-primary btn-lg btn-block login-button"
+						data-ng-click="register()">Register</button>
+				</div>
+
+				<div ng-if="loginPage === true" class="login-register">
+					<a ng-click="$parent.loginPage=false" href="">Don't have an
+						account yet?</a>
+				</div>
+
+				<div ng-if="!loginPage" class="login-register">
+					<a ng-click="$parent.loginPage=true" href="">Login here!</a>
+				</div>
+			</form>
+		</div>
+	</div>
+	<hr />
+</div>
