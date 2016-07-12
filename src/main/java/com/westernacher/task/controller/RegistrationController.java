@@ -1,5 +1,7 @@
 package com.westernacher.task.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +21,7 @@ public class RegistrationController {
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	public User register(@RequestBody User user) {
+	public User register(@RequestBody @Valid User user) {
 		return userService.save(user);
 	}
 }

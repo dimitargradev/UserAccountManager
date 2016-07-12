@@ -10,6 +10,7 @@
 		<tomcat.version>8.0.18</tomcat.version>
 		<eclipse.compiler>4.4</eclipse.compiler>
 		<hibernate>5.1.0.Final</hibernate>
+		<hibernate.validator>5.2.4.Final</hibernate.validator>
 		<javax.persistence>1.0.2</javax.persistence>
 		<javax.version>2.0</javax.version>
 		<spring.data>1.10.1.RELEASE</spring.data>
@@ -55,6 +56,11 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator}</version>
 		</dependency>
 
 		<dependency>

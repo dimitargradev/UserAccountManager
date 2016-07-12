@@ -1,16 +1,32 @@
 (function() {
 	var module = angular.module("userAccountManager");
 
-	var controller = function($scope, $rootScope, userFactory) {
+	var controller = function($scope, $rootScope, userFactory, $uibModal) {
 
-		$scope.emailFormat = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 		$scope.desc = false;
 		var lastSortParam = "";
-		
+
 		// Fetch all users:
-		userFactory.getAll().success(function(response){
+		userFactory.getAll().success(function(response) {
 			$scope.users = response;
 		});
+		
+		var initializeModal = function(user) {
+			var modalInstance = $uibModal.open({
+			    animation : true,
+			    templateUrl : 'js/directive/editUserModal.html',
+			    controller : 'userModalCtrl',
+			    size : "sm",
+			    resolve : {
+				    items : function() {
+					    return {
+						    user : user
+					    };
+				    }
+			    }
+			});
+			return modalInstance;
+		};
 
 		$scope.deleteUser = function(user) {
 			var userId = user.userId;
@@ -24,31 +40,21 @@
 				});
 			});
 		};
-		
-		$scope.onUserEdit = function(user) {
-			if ($rootScope.currentUser.userId === user.userId) {
-				$scope.selfEditing = true;
-			}
-			var editUser = function(){
-				$scope.selfEditing = false;
-				$("#editUserModal").modal("hide");
-				var promise = userFactory.updateUser($scope.selectedUser);
-				promise.success(function(response){
-					var index;
-					$scope.users.forEach(function(user, idx){
-						if(user.userId === response.userId) {
-							index = idx;
-							return;
-						}
-					});
-					$scope.users[index] = response;
-				});
-			};
-			$("button[name=update]").on("click", editUser);
-			$scope.selectedUser = angular.copy(user);
-			$("#editUserModal").modal("show");
+
+		$scope.editUser = function(user) {
+			var modalInstance = initializeModal(user);
+			
+			modalInstance.result.then(function(user) {
+				console.log(user);
+			}, function() {
+			});
+
 		};
-		
+
+		$scope.createUser = function() {
+			var modalInstance = initializeModal();
+		};
+
 		$scope.sort = function(sortParam) {
 			if (sortParam == lastSortParam) {
 				$scope.desc = !$scope.desc;
@@ -56,15 +62,15 @@
 				lastSortParam = sortParam;
 				$scope.desc = false;
 			}
-			userFactory.getAll(sortParam, $scope.desc).success(function(response){
+			userFactory.getAll(sortParam, $scope.desc).success(function(response) {
 				$scope.users = response;
 			});
 		};
-		
-		$scope.logout = function(){
+
+		$scope.logout = function() {
 			userFactory.invalidateSession();
 		};
 	};
-
-	module.controller("homeController", [ "$scope", "$rootScope", "userFactory", controller ]);
+	module.controller("homeController", [ "$scope", "$rootScope", "userFactory", "$uibModal",
+	        controller ]);
 }());

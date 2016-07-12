@@ -12,10 +12,15 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "user")
@@ -29,15 +34,23 @@ public class User implements UserDetails {
 	private Integer userId;
 
 	@Column(name = "username")
+	@Length(min = 5)
+	@NotEmpty
 	private String username;
 
 	@Column(name = "password")
+	@Length(min = 5)
+	@NotEmpty
 	private String password;
 
 	@Column(name = "name")
+	@Length(min = 5)
+	@NotEmpty
 	private String name;
 
 	@Column(name = "email")
+	@Email
+	@NotEmpty
 	private String email;
 
 	@Column(name = "creation_time")
@@ -90,10 +103,12 @@ public class User implements UserDetails {
 	}
 
 	@Override
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
 
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}

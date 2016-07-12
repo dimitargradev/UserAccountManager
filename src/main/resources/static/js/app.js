@@ -1,5 +1,5 @@
 (function() {
-	var module = angular.module("userAccountManager", [ "ngRoute", "ngMessages" ]);
+	var module = angular.module("userAccountManager", [ "ngRoute", "ngMessages", "ui.bootstrap"]);
 
 	module.config(function($routeProvider, $httpProvider) {
 		$routeProvider.when("/", {

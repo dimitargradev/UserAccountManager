@@ -73,6 +73,9 @@ input, input::-webkit-input-placeholder {
 .table a.table-link.danger {
     color: #e74c3c;
 }
+.table a.table-link.success {
+    color: #5cb85c;
+}
 .label {
     border-radius: 3px;
     font-size: 0.875em;
