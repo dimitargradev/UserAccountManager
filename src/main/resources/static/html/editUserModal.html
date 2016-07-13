@@ -1,0 +1,122 @@
+<div class="modal-header">
+	<button type="button" class="close" ng-click="close()">&times;</button>
+	<h4 class="modal-title">{{modalTitle}} user</h4>
+</div>
+<div class="modal-body">
+	<form name="userForm">
+		<div class="form-group" has-error>
+			<label for="name" class="cols-sm-2 control-label">Name</label>
+			<div class="cols-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon"> <i class="fa fa-user fa"
+						aria-hidden="true"></i>
+					</span> <input name="name" class="form-control" type="text"
+						data-ng-model="user.name" required minlength="5"/>
+				</div>
+			</div>
+				<div ng-messages="userForm.name.$error" data-ng-if="userForm.name.$dirty">
+					<span class="custom-error" ng-message="required">
+						Please enter a name!
+					</span>
+					<span class="custom-error" ng-message="minlength">
+						The name should be at least 5 chars!
+					</span>
+				</div>
+		</div>
+		<div class="form-group" has-error>
+			<label for="email" class="cols-sm-2 control-label">Email</label>
+			<div class="cols-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon"> <i class="fa fa-envelope fa"
+						aria-hidden="true"></i>
+					</span> <input name="email" class="form-control" type="text"
+						data-ng-model="user.email" required ng-pattern="re"/>
+				</div>
+			</div>
+			<div ng-messages="userForm.email.$error" data-ng-if="userForm.email.$dirty">
+				<span class="custom-error" ng-message="required">
+					Please enter an email address!
+				</span>
+				<span class="custom-error" ng-message="pattern">
+					Please enter a valid email address!
+				</span>
+			</div>
+		</div>
+		<div class="form-group" data-ng-if="createMode" has-error>
+			<label for="username" class="cols-sm-2 control-label">Username</label>
+			<div class="cols-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon"> <i class="fa fa-users fa"
+						aria-hidden="true"></i>
+					</span> <input name="username" class="form-control" type="text"
+						data-ng-model="user.username" required minlength="5"/>
+				</div>
+			</div>
+				<div ng-messages="userForm.username.$error" data-ng-if="userForm.username.$dirty">
+					<span class="custom-error" ng-message="required">
+						Please enter a username!
+					</span>
+					<span class="custom-error" ng-message="minlength">
+						The username should be at least 5 chars!
+					</span>
+				</div>
+		</div>
+		<div class="form-group" data-ng-if="createMode" has-error>
+			<label for="name" class="cols-sm-2 control-label">Password</label>
+			<div class="cols-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon"> <i class="fa fa-lock fa-lg" 
+						aria-hidden="true"></i>
+					</span> <input name="password" class="form-control" type="password"
+						data-ng-model="$parent.user.password" required minlength="5"/>
+				</div>
+			</div>
+			<div ng-messages="userForm.password.$error" data-ng-if="userForm.password.$dirty">
+				<span class="custom-error" ng-message="required">
+					Please enter a password!
+				</span>
+				<span class="custom-error" ng-message="minlength">
+					The password should be at least 5 chars!
+				</span>
+			</div>
+		</div>
+		<div class="form-group" data-ng-if="createMode" 
+				data-ng-class="(userForm.confirmPassword.$dirty && 
+					userForm.password.$dirty && 
+					userForm.password.$valid && 
+					user.password!==user.confirmPassword) ? 'has-error' : ''">
+			<label for="name" class="cols-sm-2 control-label">Confirm Password</label>
+			<div class="cols-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon"> <i class="fa fa-lock fa-lg" 
+						aria-hidden="true"></i>
+					</span> <input name="confirmPassword" class="form-control" type="password"
+						data-ng-model="$parent.user.confirmPassword" required/>
+				</div>
+			</div>
+			<span class="custom-error"
+				data-ng-if="(userForm.confirmPassword.$dirty && 
+						userForm.password.$dirty && 
+						userForm.password.$valid && 
+						user.password!==user.confirmPassword)">Passwords
+				don't match!</span>
+		</div>
+		<div class="form-group" data-ng-if="!createMode">
+			<label for="status" class="cols-sm-2 control-label">Status</label>
+			<div class="cols-sm-10">
+				<div class="input-group">
+					<span class="input-group-addon"> <i class="fa fa-user fa"
+						aria-hidden="true"></i>
+					</span> <select name="status" class="form-control"
+						ng-model="user.enabled"
+						ng-options="o.v as o.n for o in [{ n: 'Enabled', v: true }, { n: 'Disabled', v: false }]">
+					</select>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="modal-footer">
+	<button name="update" ng-click="submit()" type="button" class="btn btn-success">{{submitButtonName}}</button>
+	<button name="close" ng-click="close()" type="button" class="btn btn-default">Close</button>
+</div>

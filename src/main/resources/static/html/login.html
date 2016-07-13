@@ -42,6 +42,8 @@
 						ng-if="loginForm.email.$dirty">
 						<span class="custom-error" ng-message="required">Please
 							enter your email!</span>
+						<span class="custom-error" ng-message="pattern">Please
+							enter a valid email address!</span>
 					</div>
 				</div>
 
@@ -51,7 +53,7 @@
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-users fa"
 								aria-hidden="true"></i></span> <input name="username"
-								class="form-control" data-ng-model="user.username" required
+								class="form-control" data-ng-model="user.username" minlength="5" required
 								type="text" placeholder="Enter your Username" autocomplete="off" />
 						</div>
 					</div>
@@ -59,6 +61,8 @@
 						ng-if="loginForm.username.$dirty">
 						<span class="custom-error" ng-message="required">Please
 							enter your username!</span>
+						<span class="custom-error" ng-message="minlength">Your username 
+							should be at least 5 digits!</span>
 					</div>
 				</div>
 
@@ -69,7 +73,7 @@
 							<span class="input-group-addon"><i
 								class="fa fa-lock fa-lg" aria-hidden="true"></i></span> <input
 								id="password" name="password" class="form-control"
-								data-ng-model="user.password" required type="password"
+								data-ng-model="user.password" required minlength="5" type="password"
 								placeholder="Enter your Password" autocomplete="off" />
 						</div>
 					</div>
@@ -77,6 +81,8 @@
 						ng-if="loginForm.password.$dirty">
 						<span class="custom-error" ng-message="required">Please
 							enter your password!</span>
+						<span class="custom-error" ng-message="minlength">Your password 
+							should be at least 5 digits!</span>
 					</div>
 				</div>
 

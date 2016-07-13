@@ -2,6 +2,8 @@ package com.westernacher.task.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.westernacher.task.model.EditUser;
 import com.westernacher.task.model.User;
 import com.westernacher.task.service.UserService;
 import com.westernacher.task.util.SecurityUtil;
@@ -36,8 +39,14 @@ public class UserController {
 	}
 
 	@ResponseBody
+	@RequestMapping(method = RequestMethod.POST)
+	public User createUser(@RequestBody @Valid User user) {
+		return userService.save(user);
+	}
+
+	@ResponseBody
 	@RequestMapping(method = RequestMethod.PUT)
-	public User updateUser(@RequestBody User user) {
+	public User updateUser(@RequestBody @Valid EditUser user) {
 		return userService.update(user);
 	}
 

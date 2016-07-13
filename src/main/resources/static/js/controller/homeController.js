@@ -5,16 +5,19 @@
 
 		$scope.desc = false;
 		var lastSortParam = "";
+		// Email regex:
+		var re = /^\S+@\S+\.\S+$/;
+		$scope.re = new RegExp(re);
 
 		// Fetch all users:
 		userFactory.getAll().success(function(response) {
 			$scope.users = response;
 		});
-		
+
 		var initializeModal = function(user) {
 			var modalInstance = $uibModal.open({
 			    animation : true,
-			    templateUrl : 'js/directive/editUserModal.html',
+			    templateUrl : 'html/editUserModal.html',
 			    controller : 'userModalCtrl',
 			    size : "sm",
 			    resolve : {
@@ -43,16 +46,57 @@
 
 		$scope.editUser = function(user) {
 			var modalInstance = initializeModal(user);
-			
-			modalInstance.result.then(function(user) {
-				console.log(user);
-			}, function() {
-			});
 
+			modalInstance.result.then(function(user) {
+				var userIndex;
+				userFactory.updateUser(user).success(function(response) {
+					$.each($scope.users, function(index, user) {
+						if (user.userId === response.userId) {
+							userIndex = index;
+							return false;
+						}
+					});
+					if (typeof userIndex !== "undefined") {
+						$scope.users[userIndex] = response;
+					}
+				}).error(function(response) {
+			        if (response && response.fieldErrors) {
+				        var msg = "The following errors occured:\n";
+				        response.fieldErrors.forEach(function(error) {
+					        var line = "The filed '" + error.fieldName + "' "
+					                + error.message + "\n";
+					        msg += line;
+				        });
+				        alert(msg);
+			        } else {
+			        	alert("Ooops! An unexpected error occured!\n" +
+	        			" Please try again later!");
+			        }
+		        });
+			});
 		};
 
 		$scope.createUser = function() {
 			var modalInstance = initializeModal();
+
+			modalInstance.result.then(function(user) {
+				userFactory.createUser(user).success(function(response) {
+					$scope.users.push(response);
+				}).error(function(response) {
+			        if (response && response.fieldErrors) {
+				        var msg = "The following errors occured:\n";
+				        response.fieldErrors.forEach(function(error) {
+					        var line = "The filed '" + error.fieldName + "' "
+					                + error.message + "\n";
+					        msg += line;
+				        });
+				        alert(msg);
+			        } else {
+			        	alert("Ooops! An unexpected error occured!\n" +
+			        			" Please try again later!");
+			        }
+		        });
+			});
 		};
 
 		$scope.sort = function(sortParam) {

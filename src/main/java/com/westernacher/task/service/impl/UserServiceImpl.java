@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.westernacher.task.model.EditUser;
 import com.westernacher.task.model.User;
 import com.westernacher.task.repository.UserRepository;
 import com.westernacher.task.service.UserService;
@@ -52,7 +53,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User update(User user) {
+	public User update(EditUser user) {
 		final User dbUser = userRepository.findOne(user.getUserId());
 		dbUser.setName(user.getName());
 		dbUser.setEmail(user.getEmail());

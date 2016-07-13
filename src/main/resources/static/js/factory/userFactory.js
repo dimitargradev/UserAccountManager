@@ -74,6 +74,12 @@
 					return promise;
 				},
 				
+				createUser : function(user) {
+					var url = "/api/users";
+					var promise = $http.post(url, user, getConfig());
+					return promise;
+				},
+				
 				deleteUser : function(userId) {
 					var url = "/api/users/delete/" + userId;
 					var promise = $http.delete(url, getConfig());
