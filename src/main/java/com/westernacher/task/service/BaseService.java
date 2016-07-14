@@ -6,7 +6,7 @@ public interface BaseService<T, Serializable> {
 
 	public T findOne(Serializable id);
 
-	public List<T> findAll(String orderBy, String orderDirection);
+	public List<T> findAll();
 
 	public T save(T entity);
 

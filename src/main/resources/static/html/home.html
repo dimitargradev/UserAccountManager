@@ -16,6 +16,14 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<div class="main-page page no-header clearfix">
+				<div class="row form-group">
+					<div class="col-md-2 col-md-offset-10">
+						<select class="form-control"  ng-model="currentPage"
+								ng-options="page.name for page in pages track by page.value"
+								ng-change="onPageChange()">
+						</select>
+					</div>
+				</div>
 				<div class="table-responsive">
 					<table class="table user-list">
 						<thead>

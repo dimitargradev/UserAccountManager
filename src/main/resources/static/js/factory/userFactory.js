@@ -58,11 +58,11 @@
 					});
 				},
 				
-				getAll : function(sortParam, direction) {
-					var url = "/api/users/all";
+				getAll : function(page, sortParam, direction) {
+					var url = "/api/users/all?page=" + page;
 					if (sortParam) {
 						var sortDirection = direction ? "DESC" : "ASC";
-						url += "?" + "orderBy=" + sortParam + "&direction=" + sortDirection;
+						url += "&" + "orderBy=" + sortParam + "&direction=" + sortDirection;
 					}
 					var promise = $http.get(url, getConfig());
 					return promise;

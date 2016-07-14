@@ -10,12 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.westernacher.task.model.EditUser;
 import com.westernacher.task.model.User;
+import com.westernacher.task.model.wrapper.PageResultWrapper;
 import com.westernacher.task.repository.UserRepository;
 import com.westernacher.task.service.UserService;
 import com.westernacher.task.util.PasswordEncodeUtil;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+	private static Integer PER_PAGE = 10;
 
 	@Autowired
 	UserRepository userRepository;
@@ -26,13 +29,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findAll(String orderBy, String orderDirection) {
-		if ((orderBy != null) && (orderDirection != null)) {
-			final Pageable page = getPage(orderBy, orderDirection);
-			return userRepository.findAll(page).getContent();
-		} else {
-			return userRepository.findAll();
-		}
+	public List<User> findAll() {
+		return userRepository.findAll();
+	}
+
+	@Override
+	public PageResultWrapper<User> findAll(String orderBy, String direction, Integer page) {
+		return new PageResultWrapper<>(userRepository.findAll(getPage(orderBy, direction, page)));
 	}
 
 	@Override
@@ -61,9 +64,14 @@ public class UserServiceImpl implements UserService {
 		return userRepository.save(dbUser);
 	}
 
-	private Pageable getPage(String orderBy, String orderDirection) {
-		final Direction dir = orderDirection.equals("DESC") ? Direction.DESC : Direction.ASC;
-		return new PageRequest(0, 20, dir, orderBy);
+	private Pageable getPage(String orderBy, String orderDirection, Integer page) {
+		if ((orderBy != null) && (orderDirection != null) && (page != null)) {
+			final Direction direction = ("DESC").equals(orderDirection) ? Direction.DESC : Direction.ASC;
+			return new PageRequest(page, PER_PAGE, direction, orderBy);
+		} else if (page != null) {
+			return new PageRequest(page, PER_PAGE);
+		} else {
+			return new PageRequest(0, PER_PAGE);
+		}
 	}
-
 }

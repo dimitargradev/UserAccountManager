@@ -1,7 +1,5 @@
 package com.westernacher.task.controller;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.westernacher.task.model.EditUser;
 import com.westernacher.task.model.User;
+import com.westernacher.task.model.wrapper.PageResultWrapper;
 import com.westernacher.task.service.UserService;
 import com.westernacher.task.util.SecurityUtil;
 
@@ -33,9 +32,10 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping(path = "/all", method = RequestMethod.GET)
-	public List<User> getAllUsers(@RequestParam(value = "orderBy", required = false) String orderBy,
-			@RequestParam(value = "direction", required = false) String direction) {
-		return userService.findAll(orderBy, direction);
+	public PageResultWrapper<User> getAllUsers(@RequestParam(value = "orderBy", required = false) String orderBy,
+			@RequestParam(value = "direction", required = false) String direction,
+			@RequestParam(value = "page", required = false) Integer page) {
+		return userService.findAll(orderBy, direction, page);
 	}
 
 	@ResponseBody
