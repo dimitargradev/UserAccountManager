@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.westernacher.task.model.User;
 import com.westernacher.task.repository.UserRepository;
 
-
 @RestController
 @RequestMapping("/test")
 public class TestController {
@@ -20,6 +19,7 @@ public class TestController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.GET)
 	public User getUser() {
-		return userRepository.findByUsername("admin");
+		throw new RuntimeException("Testing the exceptions");
+		// return userRepository.findByUsername("admin");
 	}
 }

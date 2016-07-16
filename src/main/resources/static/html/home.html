@@ -42,7 +42,7 @@
 							<tr data-id="{{user.userId}}" data-ng-repeat="user in users">
 								<td>
 									<img src="http://bootdey.com/img/Content/user_1.jpg" alt=""> 
-									<a href="" class="user-link">{{user.name}}</a> 
+									<a href="" class="user-link" ng-click="editUser(user)">{{user.name}}</a> 
 									<span class="user-subhead">Member</span>
 								</td>
 								<td>{{user.creationTime | date : 'dd-MM-yyyy'}}</td>

@@ -18,8 +18,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 
 @Configuration
-@PropertySources({ @PropertySource("classpath:application.properties"),
-		@PropertySource("classpath:messages.properties") })
+@PropertySources({ @PropertySource("classpath:application.properties") })
 @ComponentScan(basePackages = { "com.westernacher.task" })
 @EnableJpaRepositories(basePackages = { "com.westernacher.task.repository" })
 public class SpringRootConfig {
@@ -39,7 +38,6 @@ public class SpringRootConfig {
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		System.out.println(env.getProperty("test"));
 		final LocalContainerEntityManagerFactoryBean emfBean = new LocalContainerEntityManagerFactoryBean();
 		emfBean.setDataSource(dataSource());
 		emfBean.setPackagesToScan(env.getProperty("entityManager.packages.to.scan"));

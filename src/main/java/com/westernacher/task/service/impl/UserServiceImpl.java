@@ -14,6 +14,7 @@ import com.westernacher.task.model.wrapper.PageResultWrapper;
 import com.westernacher.task.repository.UserRepository;
 import com.westernacher.task.service.UserService;
 import com.westernacher.task.util.PasswordEncodeUtil;
+import com.westernacher.task.validation.WebAppException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -40,6 +41,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User save(User user) {
+		if (userRepository.findByUsername(user.getUsername()) != null) {
+			throw new WebAppException(String.format("Duplicate username: %s!", user.getUsername()));
+		}
+		if (userRepository.findByEmail(user.getEmail()) != null) {
+			throw new WebAppException(String.format("Duplicate email: %s!", user.getEmail()));
+		}
 		final String password = user.getPassword();
 		user.setPassword(PasswordEncodeUtil.encodePassword(password));
 		return userRepository.save(user);
@@ -58,9 +65,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(EditUser user) {
 		final User dbUser = userRepository.findOne(user.getUserId());
+		if (!user.getEmail().equals(dbUser.getEmail()) && (userRepository.findByEmail(user.getEmail()) != null)) {
+			throw new WebAppException(String.format("Duplicate email: %s!", user.getEmail()));
+		}
+
 		dbUser.setName(user.getName());
 		dbUser.setEmail(user.getEmail());
 		dbUser.setEnabled(user.isEnabled());
+
 		return userRepository.save(dbUser);
 	}
 
@@ -72,6 +84,21 @@ public class UserServiceImpl implements UserService {
 			return new PageRequest(page, PER_PAGE);
 		} else {
 			return new PageRequest(0, PER_PAGE);
+		}
+	}
+
+	@Override
+	public void checkUsernameExistance(String username, String email) {
+		if (username != null) {
+			final User user = userRepository.findByUsername(username);
+			if (user != null) {
+				throw new WebAppException("Username already exists");
+			}
+		} else if (email != null) {
+			final User user = userRepository.findByEmail(email);
+			if (user != null) {
+				throw new WebAppException("Email already exists");
+			}
 		}
 	}
 }

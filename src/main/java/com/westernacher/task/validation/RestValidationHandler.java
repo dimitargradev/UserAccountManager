@@ -31,4 +31,11 @@ public class RestValidationHandler {
 		return validationModel;
 	}
 
+	@ExceptionHandler({ WebAppException.class })
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ErrorResponseModel buildErrorResponse(WebAppException exc) {
+		return new ErrorResponseModel(exc.getMessage());
+	}
+
 }

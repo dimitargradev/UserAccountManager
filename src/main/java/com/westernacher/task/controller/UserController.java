@@ -39,6 +39,13 @@ public class UserController {
 	}
 
 	@ResponseBody
+	@RequestMapping(path = "/unique", method = RequestMethod.GET)
+	public void checkAttributeUniqueness(@RequestParam(required = false) String username,
+			@RequestParam(required = false) String email) {
+		userService.checkUsernameExistance(username, email);
+	}
+
+	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	public User createUser(@RequestBody @Valid User user) {
 		return userService.save(user);

@@ -2,6 +2,11 @@
 	var module = angular.module("userAccountManager");
 
 	var controller = function($scope, $location, userFactory) {
+
+		// Email regex:
+		var re = /^\S+@\S+\.\S+$/;
+		$scope.re = new RegExp(re);
+		
 		var loginSuccess = function() {
 			// Reload the "/" route
 			$location.path("/home");

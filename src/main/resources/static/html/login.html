@@ -14,9 +14,9 @@
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-user fa"
-								aria-hidden="true"></i></span> <input name="name" class="form-control"
-								data-ng-model="$parent.user.name" required autocomplete="off"
-								type="text" placeholder="Enter your Name" />
+								aria-hidden="true"></i></span> 
+							<input name="name" class="form-control" data-ng-model="$parent.user.name" 
+							required autocomplete="off" type="text" placeholder="Enter your Name" />
 						</div>
 					</div>
 					<div ng-messages="loginForm.name.$error"
@@ -32,10 +32,10 @@
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i
-								class="fa fa-envelope fa" aria-hidden="true"></i></span> <input
-								name="email" class="form-control"
-								data-ng-model="$parent.user.email" required type="text"
-								placeholder="Enter your Email" autocomplete="off" />
+								class="fa fa-envelope fa" aria-hidden="true"></i></span>
+							<input name="email" class="form-control"
+								data-ng-model="$parent.user.email" type="text" autocomplete="off" 
+								placeholder="Enter your Email" required ng-pattern="re" ng-unique />
 						</div>
 					</div>
 					<div ng-messages="loginForm.email.$error"
@@ -44,6 +44,8 @@
 							enter your email!</span>
 						<span class="custom-error" ng-message="pattern">Please
 							enter a valid email address!</span>
+						<span class="custom-error" ng-message="unique">The
+							email address is already in use!</span>
 					</div>
 				</div>
 
@@ -52,9 +54,11 @@
 					<div class="cols-sm-10">
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-users fa"
-								aria-hidden="true"></i></span> <input name="username"
-								class="form-control" data-ng-model="user.username" minlength="5" required
-								type="text" placeholder="Enter your Username" autocomplete="off" />
+								aria-hidden="true"></i></span> 
+							<input name="username" class="form-control" 
+								data-ng-model="user.username" type="text" 
+								placeholder="Enter your Username" autocomplete="off" 
+								minlength="5" required ng-unique/> 
 						</div>
 					</div>
 					<div ng-messages="loginForm.username.$error"
@@ -63,6 +67,8 @@
 							enter your username!</span>
 						<span class="custom-error" ng-message="minlength">Your username 
 							should be at least 5 digits!</span>
+						<span class="custom-error" ng-message="unique">The username is 
+							already in use.</span>
 					</div>
 				</div>
 

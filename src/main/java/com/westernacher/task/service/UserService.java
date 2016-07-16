@@ -11,4 +11,6 @@ public interface UserService extends BaseService<User, Integer> {
 	public User findByUsername(String username);
 
 	public PageResultWrapper<User> findAll(String orderBy, String direction, Integer page);
+
+	public void checkUsernameExistance(String username, String email);
 }

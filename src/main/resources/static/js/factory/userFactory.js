@@ -86,6 +86,20 @@
 					return promise;
 				},
 				
+				checkUniqueness : function(name, value){
+					var params = {};
+					params[name] = value;
+					
+					var config = {
+						method: "GET",
+						url: "/api/users/unique",
+						params: params
+					}
+					
+					var promise = $http(config);
+					return promise;
+				},
+				
 				getCurrentUser : function() {
 					if ($rootScope.currentUser) {
 						return $rootScope.currentUser;

@@ -41,6 +41,7 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
 			// For debugging reasons
 			.csrf().disable()
 			.authorizeRequests()
+			.antMatchers(HttpMethod.GET, "/users/unique").anonymous()
 			.antMatchers(HttpMethod.POST, "/login").anonymous()
 			.antMatchers(HttpMethod.POST, "/register").anonymous()
 			.anyRequest()
