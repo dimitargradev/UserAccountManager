@@ -6,7 +6,7 @@
 		// Email regex:
 		var re = /^\S+@\S+\.\S+$/;
 		$scope.re = new RegExp(re);
-		
+
 		var loginSuccess = function() {
 			// Reload the "/" route
 			$location.path("/home");
@@ -22,7 +22,7 @@
 		    success : loginSuccess,
 		    error : loginError
 		};
-		
+
 		$scope.loginPage = true;
 		$scope.user = {};
 
@@ -44,6 +44,12 @@
 					userFactory.login(response.data, loginOptions);
 				});
 			}
+		};
+		$scope.toggleForm = function() {
+			$scope.user = {};
+			$scope.loginForm.$setPristine();
+			$scope.loginForm.username.$setValidity('unique', true);
+			$scope.loginPage = !$scope.loginPage;
 		};
 	};
 

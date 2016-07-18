@@ -130,12 +130,12 @@
 				</div>
 
 				<div ng-if="loginPage === true" class="login-register">
-					<a ng-click="$parent.loginPage=false" href="">Don't have an
+					<a ng-click="toggleForm()" href="">Don't have an
 						account yet?</a>
 				</div>
 
 				<div ng-if="!loginPage" class="login-register">
-					<a ng-click="$parent.loginPage=true" href="">Login here!</a>
+					<a ng-click="toggleForm()" href="">Login here!</a>
 				</div>
 			</form>
 		</div>
